@@ -1,0 +1,467 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                   
+
+                    <div class="card-header card-header-danger">
+                        <!--<h4 class="card-title">Gestion Des Salles</h4>-->
+            
+               &nbsp;&nbsp;<li style="list-style-type:none;float:left" >
+                  <a (click)="onOpenModal(null, 'add')" matTooltip="Ajouter" [matTooltipPosition]="'above'" class="nav-link" href="javascript:void(0)"
+                  aria-hasp><i class="fa fa-plus-circle"  style="font-size:20px;color: white;"  aria-hidden="true"></i></a>
+        
+                  </li>
+                  
+                     &nbsp;&nbsp;<li style="list-style-type:none;float:left" >
+                        <a (click)="onOpenModal(null, 'deleteAll')"   matTooltip="Supprimer tous" [matTooltipPosition]="'above'" class="nav-link" href="javascript:void(0)"
+                         aria-haspopup="true" aria-expanded="false"> <i class="fa fa-trash"  style="font-size:20px;color: white;"  aria-hidden="true"></i></a>                  
+                        </li>
+                  &nbsp;&nbsp;<li style="list-style-type:none;float:left" >
+                     <a (click)="ngOnInit()"  matTooltip="Actualiser" [matTooltipPosition]="'above'" class="nav-link" href="javascript:void(0)"
+                      aria-haspopup="true" aria-expanded="false"> <i class="fa fa-refresh" style="font-size:20px;color: white;"  aria-hidden="true"></i></a>                  
+                     </li>
+            
+                      <!--  <button (click)="onOpenModal(null, 'add')" type="button" class="btn btn-secondary "
+                           value="Ajouter">Ajouter</button>
+                        <button (click)="goToPage('archiveSalle')" type="button" class="btn btn-outline-secondary"
+                           value="archiver">archive</button>-->
+            
+                           <div class="searchbar">
+                            <input class="search_input" type="text" name="" placeholder="Search..."
+                            (ngModelChange)="searchVol(key.value)"  #key="ngModel" ngModel name="key" id="searchName">
+                            <a class="search_icon"><i class="fas fa-search" style="color:red"></i></a>
+                         </div>
+            
+                     </div>
+
+                     <div class="container" id="main-container">
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                        Référence
+                                    </th>
+                                    <th>
+                                        Date départ
+                                    </th>
+                                    <th>
+                                        Date Arrivée
+                                    </th>
+                                    <th>
+                                        Aeroport départ
+                                    </th>
+                                    <th>
+                                        Aeroport arrivée
+                                    </th>
+                                  
+                                    <th>
+                                        Prix
+                                    </th>
+                                    <th>Actions</th>
+
+                                </thead>
+                                <tbody>
+                                    <tr  *ngFor="let vol of vols">
+                                        <td>
+                                            {{vol.reference}}
+                                        </td>
+                                        <td>
+                                            {{vol.dateDepart}}
+                                        </td>
+                                        <td>
+                                            {{vol.dateArrivee}}
+
+                                        </td>
+                                        <td>
+                                            {{vol.aeroportDepart.nom}}
+
+                                        </td>
+                                        <td>
+                                            {{vol.aeroportArrivee.nom}}
+
+                                        </td>
+                                        
+                                        <td>
+                                            {{vol.prix}}
+
+                                        </td>
+
+                                        <td class="td-actions ">
+                                            <button (click)="onOpenModal(vol, 'edit')"  style="color: gold;" mat-raised-button
+                                               type="button" matTooltip="Modifier" [matTooltipPosition]="'above'"
+                                               class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                               <i class="material-icons">mode_edit</i>
+                                            </button>
+                                            <button (click)="onOpenModal(vol, 'delete')"  mat-raised-button type="button"
+                                               matTooltip="Supprimer" [matTooltipPosition]="'above'"
+                                               class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                               <i class="material-icons">archive</i>
+                                            </button>        
+                                            <button (click)="onOpenModal(vol,'details')" mat-raised-button type="button"
+                                             matTooltip="Détails" [matTooltipPosition]="'above'"
+                                               class="btn btn-primary btn-link btn-sm btn-just-icon">   
+                                               <i class="material-icons">visibility</i>
+                                            </button>
+                                         </td>
+                                       
+                                    </tr>
+                                 
+                                  
+                                    
+                                   
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="addVolModal" tabindex="-1" role="dialog"
+            aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable"  role="document">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h5 class="modal-title" id="addEmployeeModalLabel">Ajouter un vol</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                     </button>
+                  </div>
+                  <div class="modal-body">
+                     <form [formGroup]="VolForm" autocomplete="off">
+
+                       
+                        <div class="form-group">
+                            <label for="reference">Référence</label>
+                           <input type="text" class="form-control" formControlName="reference" name="reference">  
+                        </div>
+                        <div class="form-group">
+                            <label for="dateDepart">Date de départ</label>
+                            <input type="date"  class="form-control" formControlName="dateDepart" name="dateDepart">  
+          
+                         </div>
+                         <div class="form-group">
+                            <label for="dateArrivee">Date d'arrivée</label>
+                            <input type="date"  class="form-control" formControlName="dateArrivee" name="dateArrivee">  
+          
+                         </div>
+
+                         <div class="form-group">
+                            <label for="etat">Etat</label>
+                           <input type="text" class="form-control" formControlName="etat" name="etat">  
+                        </div>
+
+                        <div class="form-group">
+                            <label for="type">Type</label>
+                           <input type="text" class="form-control" formControlName="type" name="type">  
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prix">Prix</label>
+                           <input type="number" class="form-control" formControlName="prix" name="prix">  
+                        </div>
+
+                        <div class="form-group">
+                            <label for="avion">Avion</label>
+                            <select #selectedAvion class="custom-select" name="avion" formControlName="avion">
+                               <option selected disabled>Choose...</option>
+                               <option *ngFor="let avion of avions" [value]="avion.id"> {{avion.type}}</option>
+                            </select>
+                         </div>
+
+                         <div class="form-group">
+                            <label for="staff">Staff</label>
+                            <select #selectedStaff class="custom-select" name="staff" formControlName="staff">
+                               <option selected disabled>Choose...</option>
+                               <option *ngFor="let staff of staffs" [value]="staff.id"> {{staff.id}}</option>
+                            </select>
+                         </div>
+
+                         <div class="form-group">
+                            <label for="aeroportDepart">Aeroport de départ</label>
+                            <select #selectedArptd class="custom-select" name="aeroportDepart" formControlName="aeroportDepart">
+                               <option selected disabled>Choose...</option>
+                               <option *ngFor="let aeroport of aeroports" [value]="aeroport.id"> {{aeroport.nom}}</option>
+                            </select>
+                         </div>
+
+                         <div class="form-group">
+                            <label for="aeroportArrivee">Aeroport d'arrivée</label>
+                            <select #selectedArpta class="custom-select" name="aeroportArrivee" formControlName="aeroportArrivee">
+                               <option selected disabled>Choose...</option>
+                               <option *ngFor="let aeroport of aeroports" [value]="aeroport.id"> {{aeroport.nom}}</option>
+                            </select>
+                         </div>
+
+                         <div class="form-group">
+                            <label for="entrepriseRestauration">Entreprise de restauration</label>
+                            <select #selectedese class="custom-select" name="entrepriseRestauration" formControlName="entrepriseRestauration">
+                               <option selected disabled>Choose...</option>
+                               <option *ngFor="let entreprise of entrepriseRestauration" [value]="entreprise.id"> {{entreprise.nom}}</option>
+                            </select>
+                         </div>
+
+
+                        <div class="modal-footer">
+                           <button type="button" id="add-employee-form" class="btn btn-secondary"
+                              data-dismiss="modal">Fermer</button>
+                           <button   (click)="onAddVol(selectedAvion.value,selectedStaff.value,selectedese.value,selectedArptd.value,selectedArpta.value)" data-dismiss="modal" type="submit" class="btn btn-success"
+                            >Enregistrer</button>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <div class="modal fade" id="updateVolModal" tabindex="-1" role="dialog"
+         aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-scrollable"  role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="addEmployeeModalLabel">Modifier le vol de référence {{updateVol?.reference}}</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+                  <form [formGroup]="VolupdateForm" autocomplete="off">
+
+                    
+                     <div class="form-group">
+                         <label for="reference">Référence</label>
+                        <input type="text"  [formControl]="VolupdateForm.controls.reference" ngModel="{{updateVol?.reference}}" class="form-control" id="reference"  name="reference">  
+                     </div>
+
+                   
+
+                     <div class="form-group">
+                         <label for="dateDepart">Date de départ</label>
+                         <input type="date" [formControl]="VolupdateForm.controls.dateDepart" ngModel="{{updateVol?.dateDepart}}"  class="form-control" id="dateDepart" name="dateDepart">  
+                    </div>
+
+                      <div class="form-group">
+                         <label for="dateArrivee">Date d'arrivée</label>
+                         <input type="date"  class="form-control"[formControl]="VolupdateForm.controls.dateArrivee" ngModel="{{updateVol?.dateArrivee}}" id="dateArrivee" name="dateArrivee">  
+                      </div>
+
+                      <div class="form-group">
+                         <label for="etat">Etat</label>
+                        <input type="text" class="form-control" [formControl]="VolupdateForm.controls.etat" ngModel="{{updateVol?.etat}}" id="etat" name="etat">  
+                     </div>
+
+                     <div class="form-group">
+                         <label for="type">Type</label>
+                        <input type="text" class="form-control" [formControl]="VolupdateForm.controls.type" ngModel="{{updateVol?.type}}" id="type" name="type">  
+                     </div>
+
+                     <div class="form-group">
+                         <label for="prix">Prix</label>
+                        <input type="number" class="form-control"  [formControl]="VolupdateForm.controls.prix" ngModel="{{updateVol?.prix}}" id="prix" name="prix">  
+                     </div>
+
+                     
+
+
+                     <div class="form-group">
+                         <label for="avion">Avion</label>
+                         <select #selectedAvion1 class="custom-select" name="avion">
+                            <option [value]="updateVol?.avion.id">{{updateVol?.avion.type}}</option>
+                            <option *ngFor="let avion of avions" [value]="avion.id"> {{avion.type}}</option>
+                         </select>
+                      </div>
+
+                      <div class="form-group">
+                         <label for="staff">Staff</label>
+                         <select #selectedStaff1 class="custom-select" name="staff" >
+                            <option>{{updateVol?.staff.id}}</option>
+                            <option *ngFor="let staff of staffs" [value]="staff.id"> {{staff.id}}</option>
+                         </select>
+                      </div>
+
+                      <div class="form-group">
+                         <label for="aeroportDepart">Aeroport de départ</label>
+                         <select #selectedArptd1 class="custom-select" name="aeroportDepart">
+                            <option [value]="updateVol?.aeroportDepart.id">{{updateVol?.aeroportDepart.nom}}</option>
+                            <option *ngFor="let aeroport of aeroports" [value]="aeroport.id"> {{aeroport.nom}}</option>
+                         </select>
+                      </div>
+
+                      <div class="form-group">
+                         <label for="aeroportArrivee">Aeroport d'arrivée</label>
+                         <select #selectedArpta1 class="custom-select" name="aeroportArrivee" >
+                            <option [value]="updateVol?.aeroportArrivee.id">{{updateVol?.aeroportArrivee.nom}}</option>
+                            <option *ngFor="let aeroport of aeroports" [value]="aeroport.id"> {{aeroport.nom}}</option>
+                         </select>
+                      </div>
+
+                      <div class="form-group">
+                         <label for="entrepriseRestauration">Entreprise de restauration</label>
+                         <select #selectedese1 class="custom-select" name="entrepriseRestauration" >
+                            <option [value]="updateVol?.entrepriseRestauration.id">{{updateVol?.entrepriseRestauration.nom}}</option>
+                            <option *ngFor="let entreprise of entrepriseRestauration" [value]="entreprise.id"> {{entreprise.nom}}</option>
+                         </select>
+                      </div>
+
+
+                     <div class="modal-footer">
+                        <button type="button" id="add-employee-form" class="btn btn-secondary"
+                           data-dismiss="modal">Fermer</button>
+                        <button   [disabled]="VolupdateForm.invalid"
+                        (click)="onUpdateVol(updateVol?.id,selectedAvion1.value,selectedStaff1.value,selectedArptd1.value,selectedArpta1.value,selectedese1.value)" data-dismiss="modal" type="submit" class="btn btn-success"
+                         >Enregistrer</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+
+         <!--*******************delete Salle *****************-->
+         <div class="modal fade" id="deleteVolModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+         aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="deleteModelLabel">Supprimer le vol {{deleteVol?.reference}} </h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+                  <p>Êtes-vous sûr de vouloir supprimer le vol {{deleteVol?.reference}} ?</p>
+                  <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+                     <button (click)="onDeleteVol(deleteVol?.id)"
+                        (click)="showNotification('top','center','delete')" class="btn btn-danger"
+                        data-dismiss="modal">Oui</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+
+      <div class="modal fade" id="deleteAllVolModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="deleteModelLabel">Supprimer tous les vols</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <p>Êtes-vous sûr de vouloir supprimer tous les vols ?</p>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+                  <button (click)="onDeleteAllVol()"
+                     (click)="showNotification('top','center','delete')" class="btn btn-danger"
+                     data-dismiss="modal">Oui</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+     <!--*******************Details Vol****************-->
+     <div class="modal fade" id="detailsVol" tabindex="-1" role="dialog"
+     aria-labelledby="addVolModalLabel" aria-hidden="true">
+     <div class="modal-dialog-scrollable modal-dialog" role="document">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title" id="addVolModalLabel">Details du vol
+                     {{detailsVol?.reference}} </h5>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+             <div class="modal-body">
+                 <form>
+                     <div class="form-group">
+                         <label for="reference">Référence</label>
+                         <input type="text" name="reference" class="form-control" id="reference"
+                             ngModel="{{detailsVol?.reference}}" disabled>
+                     </div>
+
+                     <div class="form-group">
+                         <label for="dateDepart">Date de départ</label>
+                         <input type="text" name="dateDepart" class="form-control"
+                             id="dateDepart" ngModel="{{detailsVol?.dateDepart}}" disabled>
+                     </div>
+
+                     <div class="form-group">
+                         <label for="dateArrivee">Date d'arrivée</label>
+                         <input type="text" name="dateArrivee" class="form-control" id="dateArrivee"
+                             ngModel="{{detailsVol?.dateArrivee}}" disabled>
+                     </div>
+
+                     <div class="form-group">
+                         <label for="etat">Etat</label>
+                         <input type="text" name="etat" class="form-control" id="etat"
+                             ngModel="{{detailsVol?.etat}}" disabled>
+                     </div>
+
+                     <div class="form-group">
+                         <label for="type">Type</label>
+                         <input type="text" name="type" class="form-control" id="type"
+                             ngModel="{{detailsVol?.type}}" disabled>
+                     </div>
+
+                     <div class="form-group">
+                         <label for="prix">Prix</label>
+                         <input type="number" name="prix" class="form-control" id="prix"
+                             ngModel="{{detailsVol?.prix}}" disabled>
+                     </div>
+                     <div class="form-group">
+                        <label for="avion">Avion</label>
+                        <input type="text" name="avion" class="form-control" id="avion"
+                            ngModel="{{detailsVol?.avion.type}}" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="staff">Staff</label>
+                        <input type="text" name="staff" class="form-control" id="staff"
+                            ngModel="{{detailsVol?.staff.id}}" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="entrepriseRestauration">Entreprise de restauration</label>
+                        <input type="text" name="entrepriseRestauration" class="form-control" id="entrepriseRestauration"
+                            ngModel="{{detailsVol?.entrepriseRestauration.nom}}" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="aeroportDepart">Aeroport de départ</label>
+                        <input type="text" name="aeroportDepart" class="form-control" id="aeroportDepart"
+                            ngModel="{{detailsVol?.aeroportDepart.nom}}" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="aeroportArrivee">Aeroport d'arrivée</label>
+                        <input type="text" name="aeroportArrivee" class="form-control" id="aeroportArrivee"
+                            ngModel="{{detailsVol?.aeroportArrivee.nom}}" disabled>
+                    </div>
+                   
+
+
+                     <div class="modal-footer">
+                         <button type="button" id="" data-dismiss="modal"
+                             class="btn btn-primary">Fermer</button>
+
+                     </div>
+                 </form>
+             </div>
+         </div>
+     </div>
+ </div>
+
+
+
+
+         </div>
+         </div>
+         </div>

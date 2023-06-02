@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+
+<head>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+  <meta charset="utf-8">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="main">
+    <div class="container a-container" id="a-container">
+      <form class="form" id="a-form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+        <h2 class="form_title title">Créer Un Compte</h2>
+
+        <div class="form__group" [ngClass]="{ 'has-error': cin.invalid && cin.touched }">
+          <input class="form__input" type="number" placeholder="Cin" name="cin" id="cin" [(ngModel)]="form.cin"
+            #cin="ngModel" required>
+          <div class="error-message" *ngIf="cin.invalid && cin.touched">
+            <div *ngIf="cin.errors.required">Cin est obligatoire.</div>
+          </div>
+        </div>
+
+        <div class="form__group" [ngClass]="{ 'has-error': username.invalid && username.touched }">
+          <input class="form__input" type="text" placeholder="Nom d'utilisateur" name="username" id="username"
+            [(ngModel)]="form.username" #username="ngModel" required>
+          <div class="error-message" *ngIf="username.invalid && username.touched">
+            <div *ngIf="username.errors.required">Nom d'utilisateur est obligatoire.</div>
+          </div>
+        </div>
+
+        <div class="form__group" [ngClass]="{ 'has-error': email.invalid && email.touched }">
+        <input class="form__input" type="text" placeholder="Email" name="email" id="email" [(ngModel)]="form.email"
+          #email="ngModel" required>
+          <div class="error-message" *ngIf="email.invalid && email.touched">
+            <div *ngIf="email.errors.required">Email est obligatoire.</div>
+          </div>
+        </div>
+
+
+        <div class="form__group" [ngClass]="{ 'has-error': tel.invalid && tel.touched }">
+        <input class="form__input" type="text" placeholder="Tél" name="tel" id="tel" [(ngModel)]="form.tel"
+          #tel="ngModel" required>
+          <div class="error-message" *ngIf="tel.invalid && tel.touched">
+            <div *ngIf="tel.errors.required">N° télèphone est obligatoire.</div>
+          </div>
+        </div>
+
+        <div class="form__group" [ngClass]="{ 'has-error': password.invalid && password.touched }">
+        <input class="form__input" type="password" placeholder="Mot de passe" name="password" id="password"
+          [(ngModel)]="form.password" #password="ngModel" required>
+          <div class="error-message" *ngIf="password.invalid && password.touched">
+            <div *ngIf="password.errors.required">Mot de passe est obligatoire.</div>
+          </div>
+        </div>
+
+
+        <div>
+        <button class="form__button button" [disabled]="f.invalid" type="submit">S'INSCRIRE</button>
+      </div>
+      </form>
+    </div>
+
+
+
+
+
+
+
+    <div class="container b-container" id="b-container">
+      <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit2()">
+        <h2 class="form_title title">SE CONNECTER</h2>
+        <div>
+          <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </div>
+        </div>
+        <div>
+          <input class="form__input" type="text" placeholder="Nom d'utilisateur" id="username"
+            formControlName="username">
+          <div
+            *ngIf="loginForm.controls['username'].invalid && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)"
+            class="error-message">
+            <div *ngIf="loginForm.controls['username'].errors.required">Le nom d'utilisateur est obligatoire.</div>
+          </div>
+        </div>
+        <div>
+          <input class="form__input" type="password" placeholder="Mot de passe" id="password"
+            formControlName="password">
+          <div
+            *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)"
+            class="error-message">
+            <div *ngIf="loginForm.controls['password'].errors.required">Le mot de passe est obligatoire.</div>
+          </div>
+        </div>
+        <button class="form__button button " type="submit">SE CONNECTER</button>
+      </form>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="switch" id="switch-cnt">
+      <div class="switch__circle"></div>
+      <div class="switch__circle switch__circle--t"></div>
+      <div class="switch__container" id="switch-c1">
+        <h2 class="switch__title title">Bienvenue !</h2>
+        <p class="switch__description description">Pour rester connecté avec nous, veuillez vous connecter avec vos
+          informations personnelles</p>
+        <button class="switch__button button switch-btn">SE CONNECTER</button>
+      </div>
+      <div class="switch__container is-hidden" id="switch-c2">
+        <h2 class="switch__title title">Bonjour !</h2>
+        <p class="switch__description description">Entrez vos données personnelles et commencez la journée avec nous</p>
+        <button class="switch__button button switch-btn">S'INSCRIRE</button>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

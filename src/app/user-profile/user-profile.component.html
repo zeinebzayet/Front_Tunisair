@@ -1,0 +1,142 @@
+<div class="main-content" id="main-container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Mettre à jour votre profil</h4>
+            <p class="card-category">Compléter votre profil</p>
+          </div>
+          <div class="card-body">
+            <form>
+             
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <label> Cin </label>
+                    <input class="text-dark" matInput value="{{user.cin}}" type="text" disabled>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <label> Nom d'utilisateur </label>
+                    <input class="text-dark" matInput value="{{user.username}}" type="text" disabled>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+              
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <label> Adresse E-mail </label>
+                    <input class="text-dark" matInput value="{{user.email}}" type="email" disabled>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <label> Tel </label>
+                    <input class="text-dark" matInput value="{{user.tel}}" type="text" disabled>
+                  </mat-form-field>
+                </div>
+              </div>
+              <button mat-raised-button type="submit" (click)="onOpenModal(user,'update')"
+                class="btn btn-outline-warning pull-right">Mettre à Jour</button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card card-profile">
+          <div class="card-avatar">
+            <a href="javascript:void(0)">
+              <!--<img  src="./assets/img/faces/marc.jpg" />-->
+
+              
+              <img  class="img"
+              src="./assets/img/faces/inconnue.jpg"
+           
+           >
+              
+            </a>
+          </div>
+
+
+
+          <div class="card-body">
+            <h6 class="card-category text-gray">ADMINISTRATEUR</h6>
+            <h4 class="card-title">{{user.username}} </h4>
+
+
+          </div>
+        </div>
+      </div>
+
+
+      
+
+      <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="clientEditModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable " role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="updateClientModalLabel">Mettre à jour votre profil
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form #editForm="ngForm">
+                <div class="form-group">
+                  <label for="nom">Cin</label>
+                  <input type="text" ngModel="{{updateUser?.cin}}" name="cin" class="form-control" id="cin"
+                    required disabled>
+                </div>
+                <div class="form-group">
+                  <label for="username">Nom d'utilisateur</label>
+                  <input type="text" ngModel="{{updateUser?.username}}" name="username" class="form-control" id="username"
+                    required>
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Adresse E-mail</label>
+                  <input type="text" ngModel="{{updateUser?.email}}" name="email" class="form-control"
+                    id="email" required>
+                </div>
+
+               
+
+                <div class="form-group">
+                  <label for="tel">N° Télèphone</label>
+                  <input type="tel" ngModel="{{updateUser?.tel}}" name="tel" class="form-control" id="tel"
+                    required>
+                </div>
+
+                <div class="form-group">
+                  <label for="password">Mot de passe</label>
+                  <input type="password" ngModel name="password" class="form-control" id="password"
+                    required>
+                </div>
+
+              
+
+
+                <div class="modal-footer">
+                  <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Annuler</button>
+                  <button (click)="onUpdateProfile(editForm.value)" data-dismiss="modal"
+                    class="btn btn-success">Enregistrer
+                    </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+    </div>
+  </div>
+</div>
